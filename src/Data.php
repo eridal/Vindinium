@@ -30,9 +30,6 @@ trait Data {
      */
     private function read(array $data, array $fields) {
         foreach ($fields as $field => $type) {
-            if (true === $type) {
-                var_dump($field); exit;
-            }
             $value = Arrays::getOrThrow($data, $field, new \Exception("missing required '$field'"));
             $this->{$field} = $this->valueToType($value, $type);
         }
