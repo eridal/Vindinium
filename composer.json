@@ -1,0 +1,13 @@
+{
+    "require": {
+        "php": ">= 5.3",
+        "ext-curl": "*",
+
+        "prelude/prelude": "master-dev"
+    },
+
+    "autoload": {
+        "psr-4": { "Vindinium\\" : "src/" }
+    }
+
+}
