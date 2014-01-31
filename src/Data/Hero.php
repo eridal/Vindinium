@@ -1,6 +1,8 @@
 <?php
 
-namespace Vindinium\Game;
+namespace Vindinium\Data;
+
+use Vindinium\Server\Data;
 
 use Prelude\Arrays;
 
@@ -9,16 +11,18 @@ use Prelude\Arrays;
  */
 class Hero {
 
+    use Data;
+
     private static $FIELDS = array(
         'id' => 'int',
         'name' => 'string',
-        'userId' => 'string',
-        'elo' => 'int',
-        'pos' => 'Vindinium\\Game\\Position',
+//        'userId' => 'string', // <-- optional
+//        'elo' => 'int',
+        'pos' => 'Vindinium\\Data\\Position',
         'life' => 'int',
         'gold' => 'int',
         'mineCount' => 'int',
-        'spawnPos' => 'Vindinium\\Game\\Position',
+        'spawnPos' => 'Vindinium\\Data\\Position',
         'crashed' => 'bool',
     );
 
@@ -58,21 +62,10 @@ class Hero {
     public $spawnPos;
 
     /**
-     * @param array $data [description]
+     * @internal
      */
-    function __construct(array $data) {
-
-        foreach (self::$FIELDS as $field => $type) {
-
-            $value = Arrays::getOrThrow($data, $field);
-
-            if (class_exists($type)) {
-                $value = new $type($value);
-            } else {
-                settype($value, $type);
-            }
-
-            $this->{$field} = $value;
-        }
+    function init(array $data) {
+        $this->userId = Arrays::get($data, 'userId');
+        $this->elo = (int) Arrays::get($data, 'elo');
     }
 }

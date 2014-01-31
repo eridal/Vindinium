@@ -1,6 +1,6 @@
 <?php
 
-namespace Vindinium\Game;
+namespace Vindinium\Data;
 
 class PositionTest extends \PHPUnit_Framework_TestCase {
 
