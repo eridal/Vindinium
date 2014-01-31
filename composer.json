@@ -9,14 +9,13 @@
 
     "authors": [{
         "name": "Martin Scotta",
-        "email": "martinscotta@gmail.com",
+        "email": "martinscotta@gmail.com"
     }],
 
     "require": {
         "php": ">= 5.3",
         "ext-curl": "*",
-
-        "prelude/prelude": "master-dev"
+        "prelude/prelude": "*"
     },
 
     "autoload": {
