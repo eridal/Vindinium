@@ -4,12 +4,17 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 
 $loader = require 'vendor/autoload.php';
-$loader->add('', __DIR__);
+$loader->add('', getcwd());
 $loader->register(true);
 
-if (count($argv) < 1) {
-    echo "USAGE: {$argv[0]} bot-class [key-file]\n";
-    echo "ie: {$argv[0]} Bots\\Random key.txt\n";
+if (count($argv) < 2) {
+    echo <<<EOT
+USAGE: {$argv[0]} bot-class [key-file]
+Examples:
+> php {$argv[0]} Bots\\Random # default key-file
+> php {$argv[0]} path/to/Bots\\Random.php key.txt
+
+EOT;
     exit;
 }
 

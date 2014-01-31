@@ -22,5 +22,5 @@
         "psr-4": { "Vindinium\\" : "src/" }
     },
 
-    "bin": ["run.php"]
+    "bin": ["vindinium.php"]
 }
