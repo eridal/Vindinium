@@ -1,8 +1,6 @@
 <?php
 
-namespace Vindinium\Data;
-
-use Vindinium\Server\Data;
+namespace Vindinium;
 
 /**
  * @link http://vindinium.org/starters#json-doc
@@ -15,8 +13,8 @@ class Game {
         'id' => 'string',
         'turn' => 'int',
         'maxTurns' => 'int',
-        'heroes' => array('Vindinium\\Data\\Hero'),
-        'board' => 'Vindinium\\Data\\Board',
+        'heroes' => array('Vindinium\\Hero'),
+        'board' => 'Vindinium\\Board',
         'finished' => 'bool'
     );
 

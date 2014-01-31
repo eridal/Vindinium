@@ -1,8 +1,6 @@
 <?php
 
-namespace Vindinium\Data;
-
-use Vindinium\Server\Data;
+namespace Vindinium;
 
 /**
  * As the map is always a square, this number is the same for X and Y.

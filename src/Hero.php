@@ -1,8 +1,6 @@
 <?php
 
-namespace Vindinium\Data;
-
-use Vindinium\Server\Data;
+namespace Vindinium;
 
 use Prelude\Arrays;
 
@@ -18,11 +16,11 @@ class Hero {
         'name' => 'string',
 //        'userId' => 'string', // <-- optional
 //        'elo' => 'int',
-        'pos' => 'Vindinium\\Data\\Position',
+        'pos' => 'Vindinium\\Position',
         'life' => 'int',
         'gold' => 'int',
         'mineCount' => 'int',
-        'spawnPos' => 'Vindinium\\Data\\Position',
+        'spawnPos' => 'Vindinium\\Position',
         'crashed' => 'bool',
     );
 

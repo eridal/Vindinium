@@ -1,6 +1,6 @@
 <?php
 
-namespace Vindinium\Server;
+namespace Vindinium;
 
 use Prelude\Arrays;
 use Prelude\Check;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Vindinium\Server;
+namespace Vindinium;
 
 class Response {
 

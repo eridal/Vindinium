@@ -1,16 +1,14 @@
 <?php
 
-namespace Vindinium\Data;
-
-use Vindinium\Server\Data;
+namespace Vindinium;
 
 class State {
 
     use Data;
 
     private static $FIELDS = array(
-        'game' => 'Vindinium\\Data\\Game',
-        'hero' => 'Vindinium\\Data\\Hero',
+        'game' => 'Vindinium\\Game',
+        'hero' => 'Vindinium\\Hero',
         'token' => 'string',
         'viewUrl' => 'string',
         'playUrl' => 'string',

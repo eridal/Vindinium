@@ -2,9 +2,6 @@
 
 namespace Vindinium;
 
-use Vindinium\Server\Connection;
-use Vindinium\Data\State;
-
 class Client {
 
     /**
