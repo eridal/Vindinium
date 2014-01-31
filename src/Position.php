@@ -53,4 +53,16 @@ class Position {
     function equals(Position $pos) {
         return 0 === $this->distanceTo($pos);
     }
+
+    /**
+     * @param int $x
+     * @param int $y
+     * @return Position
+     */
+    static function create($x, $y) {
+        return new Position(array(
+            'x' => $x,
+            'y' => $y,
+        ));
+    }
 }

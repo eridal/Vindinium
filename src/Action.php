@@ -30,7 +30,9 @@ class Action {
      * @return mixed
      */
     function move($to) {
-        if (in_array($to, self::$DIRECTIONS)) {
+        if (!$to) {
+            $this->dir = self::STAY;
+        } elseif (in_array($to, self::$DIRECTIONS)) {
             $this->dir = $to;
         } else {
             throw new \InvalidArgumentException();
