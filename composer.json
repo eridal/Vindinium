@@ -1,4 +1,17 @@
 {
+    "name": "eridal/vindinium",
+
+    "description": "Vinidium Client",
+    "keywords": "vinidium",
+
+    "homepage": "http://vindinium.org/",
+    "license": "MIT",
+
+    "authors": [{
+        "name": "Martin Scotta",
+        "email": "martinscotta@gmail.com",
+    }],
+
     "require": {
         "php": ">= 5.3",
         "ext-curl": "*",
@@ -8,6 +21,7 @@
 
     "autoload": {
         "psr-4": { "Vindinium\\" : "src/" }
-    }
+    },
 
+    "bin": ["run.php"]
 }
