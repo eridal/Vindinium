@@ -20,6 +20,11 @@ class State {
     public $game;
 
     /**
+     * @var Board
+     */
+    public $board;
+
+    /**
      * @var Hero
      */
     public $hero;
@@ -38,4 +43,9 @@ class State {
      * @var string
      */
     public $playUrl;
+
+
+    function init() {
+        $this->board = $this->game->board;
+    }
 }
