@@ -28,7 +28,14 @@ class Position {
     }
 
     /**
-     * Returns the distance
+     * @return string
+     */
+    function __toString() {
+        return "({$this->x}, {$this->y})";
+    }
+
+    /**
+     * Distance to an another position
      *
      * @param Position $pos
      * @return int
@@ -37,5 +44,13 @@ class Position {
      */
     function distanceTo(Position $pos) {
          return abs($this->x - $pos->x) + abs($this->y - $pos->y);
+    }
+
+    /**
+     * @param Position $pos
+     * @return boolean
+     */
+    function equals(Position $pos) {
+        return 0 === $this->distanceTo($pos);
     }
 }
