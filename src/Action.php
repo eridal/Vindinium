@@ -6,18 +6,17 @@ class Action {
 
     const STAY  = 'Stay';
     const NORTH = 'North';
-    const SOUTH = 'South';
     const EAST  = 'East';
+    const SOUTH = 'South';
     const WEST  = 'West';
 
     /**
      * @var array
      */
     static $DIRECTIONS = array(
-        ACTION::STAY,
         ACTION::NORTH,
-        ACTION::SOUTH,
         ACTION::EAST,
+        ACTION::SOUTH,
         ACTION::WEST
     );
 
