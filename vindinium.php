@@ -48,7 +48,7 @@ $client = new Client($robot->key());
 $action = new Action();
 $state = $client->createGame();
 
-echo "Game Created";
+echo "Game Created: {$state->viewUrl}\n";
 exec("firefox --new-tab {$state->viewUrl}");
 
 do {
@@ -61,6 +61,4 @@ do {
 
     $state = $client->send($state->playUrl, $action);
 
-    echo ($state->game->turn % 25) === 0 ? ".\n" : ".";
-
-} while ($state->game->hasTurns());
+} while ($state->game->hasTurns() and !$state->hero->crashed);
