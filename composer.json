@@ -2,7 +2,7 @@
     "name": "eridal/vindinium",
 
     "description": "Vinidium Client",
-    "keywords": "vinidium",
+    "keywords": ["vinidium"],
 
     "homepage": "http://vindinium.org/",
     "license": "MIT",
