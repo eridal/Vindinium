@@ -15,15 +15,9 @@ class Client {
     public $server;
 
     /**
-     * @var Bot
-     */
-    public $bot;
-
-    /**
      * @param string $server
      */
-    function __construct(Bot $bot, $key) {
-        $this->bot = $bot;
+    function __construct($key) {
         $this->server = new Connection($key);
     }
 
@@ -42,22 +36,27 @@ class Client {
         }
 */
         $host = $host ? $host : self::$DEFAULT_HOST;
-
-        if ($response = $this->server->send("http://$host/api/$mode")) {
-            return new Runner(
-                $this->bot, new State($response->getJson())
-            );
-        }
-
-        throw new \RuntimeException($response->body);
+        return $this->send("http://$host/api/$mode");
     }
 
     /**
-     * @param Action $action
+     * @param url $url    [description]
+     * @param array|Action $params [description]
      * @return State
      */
-    function play(Action $action = null) {
+    function send($url, Action $action = null) {
 
+        if ($action instanceof Action) {
+            $params = array('dir' => $action->getDirection());
+        } else {
+            $params = null;
+        }
+
+        if ($data = $this->server->send($url, $params)) {
+            return new State($data);
+        }
+
+        throw new \RuntimeException($response->body);
     }
 
 }

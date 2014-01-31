@@ -23,9 +23,9 @@ class Connection {
     }
 
     /**
-     * @param  string $url
-     * @param  array $params [optional]
-     * @return
+     * @param string $url
+     * @param array $params [optional]
+     * @return array
      */
     function send($url, array $params = null) {
 
@@ -47,12 +47,10 @@ class Connection {
 
         curl_close($ch);
 
-        $response = new Response($status, $result);
-
-        if ($response->isError()) {
-            throw new ServerException($result, $status);
+        if ($status < 200 or 300 <= $status) {
+            throw new ServerException($result);
         }
 
-        return $response;
+        return json_decode($result, $asArray = true);
     }
 }

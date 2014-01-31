@@ -1,6 +1,6 @@
 <?php
 
-namespace Vindinium\Data;
+namespace Vindinium;
 
 use Prelude\Arrays;
 

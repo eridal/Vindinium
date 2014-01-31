@@ -2,16 +2,13 @@
 
 namespace Vindinium;
 
-use Vindinium\State;
-use Vindinium\Move;
-
 interface Robot {
 
     /**
-     * @param string $state
-     * @return string
+     * @param State $state
+     * @param Action $action
+     *
+     * @return Action
      */
-    function play(State $state, Action $action) {
-        return $action->south();
-    }
+    function play(State $state, Action $action);
 }
