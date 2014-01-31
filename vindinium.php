@@ -1,5 +1,7 @@
 <?php
 
+namespace Vindinium;
+
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 
@@ -7,12 +9,12 @@ $loader = require 'vendor/autoload.php';
 $loader->add('', getcwd());
 $loader->register(true);
 
-if (count($argv) < 2) {
+if (count($argv) < 1) {
     echo <<<EOT
-USAGE: {$argv[0]} bot-class [key-file]
+USAGE: {$argv[0]} bot-class
 Examples:
-> php {$argv[0]} Bots\\Random # default key-file
-> php {$argv[0]} path/to/Bots\\Random.php key.txt
+> php {$argv[0]} Bots\\Random
+> php {$argv[0]} path/to/Bots/Random.php
 
 EOT;
     exit;
@@ -35,18 +37,15 @@ if (!$class or !class_exists($class)) {
     exit;
 }
 
-if (empty($argv[2])) {
-    $argv[2] = 'key.txt';
-}
+$robot = new $class;
 
-
-if (false === $key = file_get_contents($argv[2])) {
+if (!($robot instanceof Robot)) {
+    echo "ERROR: class $class must implement Vindinium\\Robot\n";
     exit;
 }
 
-$client = new Vindinium\Client($key);
-$action = new Vindinium\Action();
-$robot = new $class;
+$client = new Client($robot->key());
+$action = new Action();
 $state = $client->createGame();
 
 echo "Game Created";
