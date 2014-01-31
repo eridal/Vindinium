@@ -52,7 +52,7 @@ class Hero {
     /**
      * @var Position
      */
-    public $position;
+    public $pos;
 
     /**
      * @var Position
