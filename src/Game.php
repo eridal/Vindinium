@@ -7,7 +7,7 @@ namespace Vindinium;
  */
 class Game {
 
-    use Data;
+    use ServerData;
 
     private static $FIELDS = array(
         'id' => 'string',

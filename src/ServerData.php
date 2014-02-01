@@ -5,7 +5,7 @@ namespace Vindinium;
 use Prelude\Arrays;
 use Prelude\Check;
 
-trait Data {
+trait ServerData {
 
     /**
      * @param array $data

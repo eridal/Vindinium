@@ -4,7 +4,7 @@ namespace Vindinium;
 
 class State {
 
-    use Data;
+    use ServerData;
 
     private static $FIELDS = array(
         'game' => 'Vindinium\\Game',

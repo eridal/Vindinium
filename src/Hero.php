@@ -9,7 +9,7 @@ use Prelude\Arrays;
  */
 class Hero {
 
-    use Data;
+    use ServerData;
 
     private static $FIELDS = array(
         'id' => 'int',

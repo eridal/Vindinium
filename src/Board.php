@@ -13,7 +13,7 @@ namespace Vindinium;
  */
 class Board {
 
-    use Data;
+    use ServerData;
 
     private static $FIELDS = array(
         'size' => 'int',
@@ -58,7 +58,7 @@ class Board {
      */
     function Avatars() {
         return $this->find(function ($tile) {
-            return $tile instanceof Map\Avatar;
+            return $tile instanceof Board\Avatar;
         });
     }
 
@@ -67,7 +67,7 @@ class Board {
      */
     function GoldMines() {
         return $this->find(function ($tile) {
-            return $tile instanceof Map\GoldMine;
+            return $tile instanceof Board\GoldMine;
         });
     }
 
@@ -76,7 +76,7 @@ class Board {
      */
     function Taverns() {
         return $this->find(function ($tile) {
-            return $tile instanceof Map\Tavern;
+            return $tile instanceof Board\Tavern;
         });
     }
 }
