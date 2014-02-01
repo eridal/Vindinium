@@ -19,7 +19,7 @@ trait Data {
      * @param array $data
      * @return void
      */
-    function init(array $data) {
+    protected function init(array $data) {
         // template method
     }
 
@@ -41,17 +41,6 @@ trait Data {
      * @return object
      */
     private function valueToType($value, $type) {
-        if (is_array($type)) {
-
-            Check::argument(is_array($value));
-
-            $result = array();
-            foreach ($value as $v) {
-                $result[] = $this->valueToType($v, $type[0]);
-            }
-
-            return $result;
-        }
 
         static $TYPES = array('bool', 'int', 'float', 'string');
 
@@ -60,7 +49,9 @@ trait Data {
         } elseif (class_exists($type)) {
             $value = new $type($value);
         } else {
+            // @codeCoverageIgnoreStart
             throw new \InvalidArgumentException("unknown type: $type");
+            // @codeCoverageIgnoreEnd
         }
 
         return $value;

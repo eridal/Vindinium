@@ -18,7 +18,7 @@ class Client {
      * @param string $server
      */
     function __construct($key) {
-        $this->server = new Connection($key);
+        $this->server = new Server($key);
     }
 
     /**

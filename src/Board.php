@@ -30,49 +30,53 @@ class Board {
      */
     public $tiles;
 
-    function init() {
-        $this->tiles = BoardParser::parse($this->tiles, $this->size);
+    /**
+     * @internal
+     */
+    protected function init() {
+        $this->tiles = Board\TilesReader::readTiles($this->tiles, $this->size);
     }
 
     /**
-     * @param Position $from
-     * @param Position $to
-     *
-     * @return string
+     * @param Closure $predicate
+     * @return array
      */
-    function findMove(Position $from, Position $to) {
-        $x = $from->x - $to->x;
-        $y = $from->y - $to->y;
-
-        $moves = array();
-
-        if ($x < 0) $moves[] = Action::EAST;
-        if ($x > 0) $moves[] = Action::WEST;
-        if ($y < 0) $moves[] = Action::NORTH;
-        if ($y > 0) $moves[] = Action::SOUTH;
-
-
-        if (count($moves)) {
-            shuffle($moves);
-            return $moves[0];
-        }
-
-        // you are just there
-        return Action::STAY;
-    }
-
-    /**
-     * @return Tiles
-     */
-    function getMines() {
-        $mines = array();
+    function find(\Closure $predicate) {
+        $matches = array();
         foreach ($this->tiles as $x => $line) {
             foreach ($line as $y => $tile) {
-                if ($tile instanceof GoldTile) {
-                    $mines[] = $tile;
+                if ($predicate($tile)) {
+                    $matches[] = $tile;
                 }
             }
         }
-        return $mines;
+        return $matches;
+    }
+
+    /**
+     * @return array of Tile
+     */
+    function Avatars() {
+        return $this->find(function ($tile) {
+            return $tile instanceof Map\Avatar;
+        });
+    }
+
+    /**
+     * @return array of Tile\GoldMin
+     */
+    function GoldMines() {
+        return $this->find(function ($tile) {
+            return $tile instanceof Map\GoldMine;
+        });
+    }
+
+    /**
+     *
+     */
+    function Taverns() {
+        return $this->find(function ($tile) {
+            return $tile instanceof Map\Tavern;
+        });
     }
 }

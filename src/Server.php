@@ -2,7 +2,7 @@
 
 namespace Vindinium;
 
-class Connection {
+class Server {
 
     /**
      * @var integer amount of time, in seconds, to wait for a new connection
@@ -36,7 +36,7 @@ class Connection {
         }
 
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, Connection::$MAX_CONNECT_SECONDS);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, self::$MAX_CONNECT_SECONDS);
 #       curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);

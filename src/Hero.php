@@ -14,8 +14,8 @@ class Hero {
     private static $FIELDS = array(
         'id' => 'int',
         'name' => 'string',
-//        'userId' => 'string', // <-- optional
-//        'elo' => 'int',
+//      'userId' => 'string', // <-- optional
+//      'elo' => 'int',       // <-- optional
         'pos' => 'Vindinium\\Position',
         'life' => 'int',
         'gold' => 'int',
@@ -62,7 +62,7 @@ class Hero {
     /**
      * @internal
      */
-    function init(array $data) {
+    protected function init(array $data) {
         $this->userId = Arrays::get($data, 'userId');
         $this->elo = (int) Arrays::get($data, 'elo');
     }

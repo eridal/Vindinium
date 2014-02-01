@@ -14,7 +14,7 @@ class Game {
         'turn' => 'int',
         'maxTurns' => 'int',
         'heroes' => array('Vindinium\\Hero'),
-        'board' => 'Vindinium\\Board',
+        'board' => 'Vindinium\\Board\\Map',
         'finished' => 'bool'
     );
 
@@ -53,10 +53,11 @@ class Game {
     /**
      *
      */
-    function init() {
+    protected function init() {
         $this->turn = (int)($this->turn / 4);
         $this->maxTurns = (int)($this->maxTurns / 4);
     }
+
     /**
      * @return boolean
      */

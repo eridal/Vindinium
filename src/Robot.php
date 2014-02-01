@@ -13,13 +13,13 @@ interface Robot {
      *
      * @link http://vindinium.org/register
      */
-    function key();
+    function secretKey();
 
     /**
      * @param State $state
-     * @param Action $action
+     * @param Move $direction
      *
-     * @return Action
+     * @return Move
      */
-    function play(State $state, Action $action);
+    function play(State $state);
 }

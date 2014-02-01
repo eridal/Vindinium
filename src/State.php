@@ -44,8 +44,10 @@ class State {
      */
     public $playUrl;
 
-
-    function init() {
+    /**
+     * @internal
+     */
+    protected function init() {
         $this->board = $this->game->board;
     }
 }
