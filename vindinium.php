@@ -5,11 +5,7 @@ namespace Vindinium;
 ini_set('display_errors', 1);
 error_reporting(E_ALL | E_STRICT);
 
-$loader = require 'vendor/autoload.php';
-$loader->add('', getcwd());
-$loader->register(true);
-
-if (count($argv) < 1) {
+if (count($argv) < 2) {
     echo <<<EOT
 USAGE: {$argv[0]} bot-class
 Examples:
@@ -20,45 +16,28 @@ EOT;
     exit;
 }
 
-if (is_file($file = $argv[1])) {
-    include $file;
-    $class = strtr(substr($file, 0, -4), '/', '\\');
-    do {
-        if (class_exists($class, false)) {
-            break;
-        }
-    } while ($class = substr($class, strpos($class, '\\')));
-} else {
-    $class = $argv[1];
+$composer = require 'vendor/autoload.php';
+$loader = new Client\Loader($composer, getcwd());
+
+try {
+    $robot = $loader->findRobot($argv[1]);
+} catch(\Exception $error) {
+    $message = $error->getMessage();
+    exit ("ERROR: {$message}\n");
 }
-
-if (!$class or !class_exists($class)) {
-    echo "ERROR: unable to find class: {$argv[1]}\n";
-    exit;
-}
-
-$robot = new $class;
-
-if (!($robot instanceof Robot)) {
-    echo "ERROR: class $class must implement Vindinium\\Robot\n";
-    exit;
-}
-
-$client = new Client($robot->key());
-$action = new Action();
-$state = $client->createGame();
-
-echo "Game Created: {$state->viewUrl}\n";
-exec("firefox --new-tab {$state->viewUrl}");
 
 do {
+    $match = new Client\Match($robot);
 
-    try {
-        $robot->play($state, $action);
-    } catch(\Exception $e) {
-        echo $e, PHP_EOL;
+    echo "Match Created: {$match} - ", date('r'), PHP_EOL;
+    exec("firefox --new-tab {$match}");
+
+    while (!$match->finished()) {
+        if ($match->play()) {
+            break;
+        }
     }
 
-    $state = $client->send($state->playUrl, $action);
+    echo "Match Finished - ", date('r'), PHP_EOL;
 
-} while ($state->game->hasTurns() and !$state->hero->crashed);
+} while (true);

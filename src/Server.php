@@ -12,14 +12,14 @@ class Server {
     /**
      * @var string
      */
-    public $key;
+    public $secretKey;
 
     /**
      * @param string $host
-     * @param string $key
+     * @param string $secretKey
      */
-    function __construct($key) {
-        $this->key = trim($key);
+    function __construct($secretKey) {
+        $this->secretKey = trim($secretKey);
     }
 
     /**
@@ -29,10 +29,10 @@ class Server {
      */
     function send($url, array $params = null) {
 
-        $key = array('key' => $this->key);
+        $paramKey = array('key' => $this->secretKey);
 
         if (false === $ch = curl_init($url)) {
-            throw new \RuntimeException();
+            throw new \RuntimeException;
         }
 
         curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
@@ -40,7 +40,7 @@ class Server {
 #       curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params ? $params + $key : $key));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params ? $params + $paramKey : $paramKey));
 
         $result = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);

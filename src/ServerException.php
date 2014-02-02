@@ -2,6 +2,7 @@
 
 namespace Vindinium;
 
-class ServerException extends \Exception {
-
-}
+/**
+ * An exception thrown at server side
+ */
+class ServerException extends \Exception { }

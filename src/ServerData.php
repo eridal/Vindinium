@@ -42,9 +42,18 @@ trait ServerData {
      */
     private function valueToType($value, $type) {
 
-        static $TYPES = array('bool', 'int', 'float', 'string');
+        if (is_array($type)) {
+            Check::argument(is_array($value));
+            $result = array();
+            foreach ($value as $v) {
+                $result[] = $this->valueToType($v, $type[0]);
+            }
+            return $result;
+        }
 
-        if (in_array($type, $TYPES)) {
+        static $ALLOWED_TYPES = array('bool', 'int', 'float', 'string');
+
+        if (in_array($type, $ALLOWED_TYPES)) {
             settype($value, $type);
         } elseif (class_exists($type)) {
             $value = new $type($value);

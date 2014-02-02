@@ -2,6 +2,8 @@
 
 namespace Vindinium;
 
+use Prelude\Check;
+
 class Move {
 
     const STAY  = 'Stay';
@@ -29,7 +31,6 @@ class Move {
      * @param string $dir
      */
     function __construct($dir = null) {
-        Check::argument(null === $dir or in_array($dir, Move::$DIRECTIONS));
         $this->dir = $dir ? $dir : Move::STAY;
     }
 
@@ -42,5 +43,13 @@ class Move {
         return new Move(
             $dirs[array_rand($dirs)]
         );
+    }
+
+    /**
+     * @return array
+     */
+    function params() {
+        Check::argument(null === $this->dir or in_array($this->dir, Move::$DIRECTIONS));
+        return array('dir' => $this->dir);
     }
 }
