@@ -31,24 +31,29 @@ class Server {
 
         $paramKey = array('key' => $this->secretKey);
 
-        if (false === $ch = curl_init($url)) {
-            throw new \RuntimeException;
+        if (false === $curl = curl_init($url)) {
+            throw new ServerException('unable to initialize curl');
         }
 
-        curl_setopt($ch, CURLOPT_FRESH_CONNECT, true);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, self::$MAX_CONNECT_SECONDS);
-#       curl_setopt($ch, CURLOPT_TIMEOUT, $timeout);
-        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($params ? $params + $paramKey : $paramKey));
+        curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, self::$MAX_CONNECT_SECONDS);
+        curl_setopt($curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($params ? $params + $paramKey : $paramKey));
 
-        $result = curl_exec($ch);
-        $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        $result = curl_exec($curl);
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        curl_close($ch);
+        $isError = $status < 200 or 300 <= $status;
 
-        if ($status < 200 or 300 <= $status) {
-            throw new ServerException($result);
+        if ($isError) {
+            $result = curl_error($curl);
+        }
+
+        curl_close($curl);
+
+        if ($isError) {
+            throw new ServerException($result, $status);
         }
 
         return json_decode($result, $asArray = true);

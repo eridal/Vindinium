@@ -25,31 +25,61 @@ class Move {
     /**
      * @var string
      */
-    public $dir;
+    private $dir = Move::STAY;
 
     /**
      * @param string $dir
      */
-    function __construct($dir = null) {
-        $this->dir = $dir ? $dir : Move::STAY;
+    function __toString() {
+        return (string) $this->dir;
+    }
+
+    /**
+     * @return string
+     */
+    function random() {
+        $dirs = array() + Move::$DIRECTIONS;
+        shuffle($dirs);
+        return $this->dir = $dirs[array_rand($dirs)];
     }
 
     /**
      * @return Move
      */
-    static function random() {
-        $dirs = array() + Move::$DIRECTIONS;
-        shuffle($dirs);
-        return new Move(
-            $dirs[array_rand($dirs)]
-        );
+    function stay() {
+        $this->dir = Move::STAY;
+        return $this;
     }
 
     /**
-     * @return array
+     * @return Move
      */
-    function params() {
-        Check::argument(null === $this->dir or in_array($this->dir, Move::$DIRECTIONS));
-        return array('dir' => $this->dir);
+    function north() {
+        $this->dir = Move::NORTH;
+        return $this;
+    }
+
+    /**
+     * @return Move
+     */
+    function east() {
+        $this->dir = Move::EAST;
+        return $this;
+    }
+
+    /**
+     * @return Move
+     */
+    function south() {
+        $this->dir = Move::SOUTH;
+        return $this;
+    }
+
+    /**
+     * @return Move
+     */
+    function west() {
+        $this->dir = Move::WEST;
+        return $this;
     }
 }

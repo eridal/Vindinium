@@ -6,13 +6,12 @@ use Vindinium\Client;
 use Vindinium\Move;
 use Vindinium\Robot;
 use Vindinium\Server;
-
 use Vindinium\Game\Mode;
 
-/**
- *
- */
-class Match {
+use Prelude\Arrays;
+use Prelude\Check;
+
+final class Match {
 
     /**
      * @var Client
@@ -61,20 +60,24 @@ class Match {
                $this->state->hero->crashed;
     }
 
-    /**
-     * @return boolean `true` if hero has crashed
-     */
     function play() {
+        $this->robot->play($this->state, $move = new Move);
+        $this->state = $this->client->send(
+            $this->state->playUrl,
+            array('dir' => (string) $move)
+        );
+    }
 
-        $move = $this->robot->play($this->state);
+    /**
+     * @return Hero
+     */
+    function winner() {
 
-        if ($move instanceof Move) {
-            $params = $move->params();
-        } else {
-            $params = null;
-        }
+        $players = Arrays::sortBy($this->state->game->heroes, function ($hero) {
+            return $hero->gold;
+        });
 
-        $this->state = $this->client->send($this->state->playUrl, $params);
+        return end($players);
     }
 
 }

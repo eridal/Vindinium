@@ -38,8 +38,8 @@ class BoardTest extends \PHPUnit_Framework_TestCase {
         $this->go($this->board->Avatars(), 'Vindinium\\Board\\Avatar', 1);
     }
 
-    function testGoldMines() {
-        $this->go($this->board->GoldMines(), 'Vindinium\\Board\\GoldMine', 2);
+    function testMines() {
+        $this->go($this->board->Mines(), 'Vindinium\\Board\\GoldMine', 2);
     }
 
     function go($result, $class, $count) {
@@ -48,7 +48,7 @@ class BoardTest extends \PHPUnit_Framework_TestCase {
 
         foreach ($result as $tile) {
             $this->assertInstanceOf('Vindinium\\Tile', $tile);
-            $this->assertTrue(class_exists($class));
+            $this->assertTrue(class_exists($class), "missing class $class");
             $this->assertInstanceOf($class, $tile);
         }
 

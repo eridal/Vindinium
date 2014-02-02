@@ -42,41 +42,53 @@ class Board {
      * @return array
      */
     function find(\Closure $predicate) {
-        $matches = array();
+        $accepted = array();
         foreach ($this->tiles as $x => $line) {
             foreach ($line as $y => $tile) {
                 if ($predicate($tile)) {
-                    $matches[] = $tile;
+                    $accepted[] = $tile;
                 }
             }
         }
-        return $matches;
+        return $accepted;
     }
 
     /**
-     * @return array of Tile
+     * @param Closure $predicate [optional]
+     * @return array of Tile\GoldMine
      */
-    function Avatars() {
-        return $this->find(function ($tile) {
-            return $tile instanceof Board\Avatar;
+    function Avatars(\Closure $predicate=null) {
+        return $this->find(function ($t) use ($predicate) {
+            if ($t instanceof Board\Avatar) {
+                return $predicate ? $predicate($t) : true;
+            }
+            return false;
         });
     }
 
     /**
-     * @return array of Tile\GoldMin
+     * @param Closure $predicate [optional]
+     * @return array of Tile\GoldMine
      */
-    function GoldMines() {
-        return $this->find(function ($tile) {
-            return $tile instanceof Board\GoldMine;
+    function Mines(\Closure $predicate=null) {
+        return $this->find(function ($t) use ($predicate) {
+            if ($t instanceof Board\GoldMine) {
+                return $predicate ? $predicate($t) : true;
+            }
+            return false;
         });
     }
 
     /**
-     *
+     * @param Closure $predicate [optional]
+     * @return array of Tile\Tavern
      */
-    function Taverns() {
-        return $this->find(function ($tile) {
-            return $tile instanceof Board\Tavern;
+    function Taverns(\Closure $predicate=null) {
+        return $this->find(function ($t) use ($predicate) {
+            if ($t instanceof Board\Tavern) {
+                return $predicate ? $predicate($t) : true;
+            }
+            return false;
         });
     }
 }

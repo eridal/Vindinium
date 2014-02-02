@@ -19,25 +19,28 @@ EOT;
 $composer = require 'vendor/autoload.php';
 $loader = new Client\Loader($composer, getcwd());
 
-try {
-    $robot = $loader->findRobot($argv[1]);
-} catch(\Exception $error) {
-    $message = $error->getMessage();
-    exit ("ERROR: {$message}\n");
-}
+$robot = $loader->findRobot($argv[1]);
+echo "Robot: ", get_class($robot), PHP_EOL;
 
-do {
+try {
+    start:
+    $start = time();
     $match = new Client\Match($robot);
 
-    echo "Match Created: {$match} - ", date('r'), PHP_EOL;
-    exec("firefox --new-tab {$match}");
+    echo "Playing $match\n";
+    exec("firefox --new-tab $match");
 
     while (!$match->finished()) {
-        if ($match->play()) {
-            break;
-        }
+        $match->play();
     }
 
-    echo "Match Finished - ", date('r'), PHP_EOL;
+    $finish = time() - $start;
 
-} while (true);
+    echo "Winner is {$match->winner()}\n",
+         "Match took {$match->state->game->turn} turns, $finish seconds\n";
+
+    // goto start;
+
+} catch(\Exception $error) {
+    exit ("ERROR: {$error->getMessage()}\n");
+}

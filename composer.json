@@ -15,7 +15,8 @@
     "require": {
         "php": ">= 5.3",
         "ext-curl": "*",
-        "prelude/prelude": "*"
+        "prelude/prelude": "*",
+        "prelude/prelude-iterators": "*"
     },
 
     "autoload": {

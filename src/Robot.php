@@ -17,9 +17,9 @@ interface Robot {
 
     /**
      * @param State $state
-     * @param Move $direction
+     * @param Move $to
      *
-     * @return Move
+     * @return void
      */
-    function play(State $state);
+    function play(State $state, Move $to);
 }

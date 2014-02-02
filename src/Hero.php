@@ -42,7 +42,7 @@ class Hero {
     /**
      * @var int
      */
-    public $eol;
+    public $elo;
 
     /**
      * @var @int
@@ -65,5 +65,12 @@ class Hero {
     protected function init(array $data) {
         $this->userId = Arrays::get($data, 'userId');
         $this->elo = (int) Arrays::get($data, 'elo');
+    }
+
+    /**
+     * @return string
+     */
+    function __toString() {
+        return (string) $this->name;
     }
 }

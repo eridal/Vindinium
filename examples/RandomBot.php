@@ -2,18 +2,15 @@
 
 use Vindinium\Robot;
 use Vindinium\State;
-use Vindinium\Action;
+use Vindinium\Move;
 
 class RandomBot implements Robot {
 
-    function key() {
+    function secretKey() {
         return 'mbomfzpl';
     }
 
-    function play(State $state, Action $action) {
-        $dirs = Action::$DIRECTIONS;
-        $action->move(
-            $dirs[array_rand($dirs)]
-        );
+    function play(State $state, Move $to) {
+        $to->random();
     }
 }
