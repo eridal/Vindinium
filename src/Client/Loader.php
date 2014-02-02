@@ -65,7 +65,7 @@ class Loader {
 
         if ($class) {
             // 4. success!!
-            $root = substr($path, 0, strpos($path, strtr($class, '\\', '/')));
+            $root = substr($path, 0, strrpos($path, strtr($class, '\\', '/')));
             // we believe `$class` is stored at `$root`, using psr-0 style
             return array($class, $root);
         }
