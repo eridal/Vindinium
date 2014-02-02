@@ -44,12 +44,12 @@ Download and install using [Composer](https://packagist.org/packages/eridal/vind
 
 1. Create a class, and implement the `[Robot](https://github.com/eridal/Vindinium/blob/master/src/Robot.php)` interface
 
-## Quick Example
+## Getting Started
 ```php
 /**
  * This hero will randomly move until getting thristy for a beer back home
  */
-class Explorer implements \Vindinium\Robot {
+class Random implements \Vindinium\Robot {
 
     /**
      * Robots's secret key.
@@ -67,18 +67,13 @@ class Explorer implements \Vindinium\Robot {
      *
      * On each turn this method will be called with the game `$state`
      * for you to decide what to do next.
-     *
-     * @return Vindinium\Move, or `null` if you want to "Stay"
      */
-    function play(\Vindinium\State $state) {
-        if ($state->hero->life > 35) {
-            return Vindinium\Move::random();
-        }
-        // life's low => bring the hero back home
-        return new Vindinium\Move($state->hero->spawnPos);
+    function play(\Vindinium\State $state, \Vindinium\Move $to) {
+        return $to->random();
     }
 }
 ```
+
 
 # Feedback
 Yes, please!
