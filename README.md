@@ -38,16 +38,15 @@ Download and install using [Composer](https://packagist.org/packages/eridal/vind
 
 # Robots
 
-1. Registering
-    Register your robot at [vindinium](http://vindinium.org/register).
+1. Register your robot at [vindinium](http://vindinium.org/register).
     > Tip: Use one key per robot, or stats will be shared.
 
-1. Create a class, and implement the `[Robot](https://github.com/eridal/Vindinium/blob/master/src/Robot.php)` interface
+1. Create a class, and implement the [Robot](https://github.com/eridal/Vindinium/blob/master/src/Robot.php) interface
 
 ## Getting Started
 ```php
 /**
- * This hero will randomly move until getting thristy for a beer back home
+ * This hero will randomly move
  */
 class Random implements \Vindinium\Robot {
 
@@ -69,7 +68,7 @@ class Random implements \Vindinium\Robot {
      * for you to decide what to do next.
      */
     function play(\Vindinium\State $state, \Vindinium\Move $to) {
-        return $to->random();
+        $to->random();
     }
 }
 ```
